@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import SearchModal from "../features/searchModal";
+
 export default function Header() {
   return (
     <div className="h-[10.625rem] bg-bg1 flex items-center justify-between px-6 xl:px-8 2xl:px-[8rem]">
@@ -46,14 +48,7 @@ export default function Header() {
               />
             </div>
           </div>
-          <div className="cursor-pointer xl:hidden">
-            <Image
-              src="/images/icon-search-wh.svg"
-              alt="search icon"
-              width={24}
-              height={24}
-            />
-          </div>
+          <SearchModal />
 
           {/* Social Links */}
           <ul className="items-center gap-8 hidden md:flex">
