@@ -1,9 +1,14 @@
+"use client";
 import Link from "next/link";
 import { Input } from "../ui/input";
 import Image from "next/image";
 import SearchModal from "../features/searchModal";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+  const isRootPage = pathname === "/";
+
   return (
     <div className="h-[10.625rem] bg-bg1 flex items-center justify-between px-6 xl:px-8 2xl:px-[8rem]">
       {/* Logo */}
@@ -18,8 +23,10 @@ export default function Header() {
         <ul className="flex items-center gap-4 sm:gap-8">
           <li>
             <Link
-              href="/home"
-              className="hover:text-brand1 sm:text-MediaM text-white"
+              href="/"
+              className={`hover:text-brand1 sm:text-MediaM ${
+                isRootPage ? "text-brand1" : "text-white"
+              }`}
             >
               Home
             </Link>

@@ -14,10 +14,11 @@ module.exports = {
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
+      "3xl": "1920px",
     },
     extend: {
       colors: {
-        bg1: "#292f36",
+        bg1: "#000000",
         bg2: "#1a1e23",
         brand1: "#12f7d6",
         brand2: "#98faec",
@@ -183,6 +184,15 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-300%)" },
+        },
+      },
+      animation: {
+        scroll: "scroll 7s linear infinite",
       },
     },
   },
