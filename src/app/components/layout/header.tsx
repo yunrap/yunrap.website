@@ -59,7 +59,7 @@ export default function Header() {
 
           {/* Social Links */}
           <ul className="items-center gap-8 hidden md:flex">
-            <li className="flex items-center gap-x-2 text-white cursor-pointer">
+            {/* <li className="flex items-center gap-x-2 text-white cursor-pointer">
               <Image
                 src="/images/icon-instagram.svg"
                 alt="instagram"
@@ -76,15 +76,22 @@ export default function Header() {
                 height={20}
               />
               <span className="hidden 2xl:block">discord</span>
-            </li>
+            </li> */}
             <li className="flex items-center gap-x-2 text-white cursor-pointer">
-              <Image
-                src="/images/icon-github.svg"
-                alt="github"
-                width={20}
-                height={20}
-              />
-              <span className="hidden 2xl:block">github</span>
+              <a
+                href="https://github.com/yunrap"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-x-2 hover:text-brand1"
+              >
+                <Image
+                  src="/images/icon-github.svg"
+                  alt="github"
+                  width={20}
+                  height={20}
+                />
+                <span className="hidden 2xl:block">github</span>
+              </a>
             </li>
           </ul>
         </div>

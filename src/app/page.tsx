@@ -56,7 +56,7 @@ export default function Page() {
             <div className="absolute inset-0 rounded-[100px_0_100px_0] border-2 border-teal-400 z-[-1]" />
 
             <div className="w-24 h-24 mx-auto rounded-full border-4 border-teal-400 overflow-hidden mb-4">
-              <img
+              <Image
                 src="https://via.placeholder.com/100"
                 alt="profile"
                 className="w-full h-full object-cover"
@@ -85,18 +85,19 @@ export default function Page() {
                 ))}
               </div>
             </div>
-
-            <Button variant="white" className="px-8">
-              다운로드 이력서
-              <span>
-                <Image
-                  src="/images/icon-download.svg"
-                  alt="logo"
-                  width={12}
-                  height={12}
-                />
-              </span>
-            </Button>
+            <a href="/윤예지_이력서.pdf" download>
+              <Button variant="white" className="px-8">
+                다운로드 이력서
+                <span>
+                  <Image
+                    src="/images/icon-download.svg"
+                    alt="logo"
+                    width={12}
+                    height={12}
+                  />
+                </span>
+              </Button>
+            </a>
           </div>
 
           {/* 소개 섹션 */}

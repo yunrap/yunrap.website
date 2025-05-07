@@ -26,7 +26,7 @@ export default function SideNav() {
         className="border border-white rounded-full flex flex-col items-center py-4 px-2 bg-bg2"
         style={{ minHeight: "64px" }}
       >
-        {modules.map((module, idx) => (
+        {modules.map((module) => (
           <div key={module.id} className="mb-2 last:mb-0">
             {module.id === "home" ? (
               <button
