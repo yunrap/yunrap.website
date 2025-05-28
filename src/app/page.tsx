@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Header from "./components/layout/header";
-import SideNav from "./components/layout/SideNav";
-import { Button } from "./components/ui/button";
+import SideNav from "./components/SideNav";
+import Header from "./components/header";
+import { Button } from "./components/button";
 
 // 기술 스택 데이터
 const techStack = [
@@ -57,7 +57,7 @@ export default function Page() {
 
             <div className="w-24 h-24 mx-auto rounded-full border-4 border-teal-400 overflow-hidden mb-4">
               <Image
-                src="https://via.placeholder.com/100"
+                src=""
                 alt="profile"
                 className="w-full h-full object-cover"
               />

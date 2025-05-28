@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import { Input } from "../ui/input";
 import Image from "next/image";
-import SearchModal from "../features/searchModal";
 import { usePathname } from "next/navigation";
+import { Input } from "./input";
+import SearchModal from "./searchModal";
 
 export default function Header() {
   const pathname = usePathname();
