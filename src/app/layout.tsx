@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Yunrap 기술 사이트",
   description: "Yunrap 개발성장 사이트입니다.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const ubuntu = Ubuntu({
@@ -19,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ubuntu.className} antialiased`}>{children}</body>
+      <body className={`${ubuntu.className} antialiased bg-black`}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

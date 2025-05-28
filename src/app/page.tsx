@@ -1,6 +1,5 @@
 import Image from "next/image";
 import SideNav from "./components/SideNav";
-import Header from "./components/header";
 import { Button } from "./components/button";
 
 // 기술 스택 데이터
@@ -21,7 +20,6 @@ const techStack = [
 const contactInfo = [
   { icon: "📧", text: "dbsdpwl7@gmail.com" },
   { icon: "📍", text: "부천" },
-  { icon: "💼", text: "구직중" },
   { icon: "🔗", text: "www.yunrap.com" },
 ];
 
@@ -45,7 +43,6 @@ export default function Page() {
       <div className="hidden xl:block">
         <SideNav />
       </div>
-      <Header />
       <section
         id="home"
         className="pt-16 bg-bg1 min-h-screen text-white text-4xl font-bold border-b border-gray-700 px-4 flex items-center justify-center pb-32"

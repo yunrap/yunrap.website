@@ -7,15 +7,24 @@ import SearchModal from "./searchModal";
 
 export default function Header() {
   const pathname = usePathname();
-  const isRootPage = pathname === "/";
+
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(path);
+  };
 
   return (
     <div className="h-[10.625rem] bg-bg1 flex items-center justify-between px-6 xl:px-8 2xl:px-[8rem]">
       {/* Logo */}
-      <div className="flex items-center 2xl:text-LogoM md:text-MenuM text-MediaM">
+      <Link
+        href={"/"}
+        className="flex items-center 2xl:text-LogoM md:text-MenuM text-MediaM"
+      >
         <span className="text-brand1">{`<C/>`}</span>
         <span className="text-white">Yunrap</span>
-      </div>
+      </Link>
 
       {/* Navigation and Search */}
       <div className="flex items-center gap-4 sm:gap-16">
@@ -25,7 +34,7 @@ export default function Header() {
             <Link
               href="/"
               className={`hover:text-brand1 sm:text-MediaM ${
-                isRootPage ? "text-brand1" : "text-white"
+                isActive("/") ? "text-brand1" : "text-white"
               }`}
             >
               Home
@@ -34,7 +43,9 @@ export default function Header() {
           <li>
             <Link
               href="/blogs"
-              className="hover:text-brand1 sm:text-MediaM text-white"
+              className={`hover:text-brand1 sm:text-MediaM ${
+                isActive("/blogs") ? "text-brand1" : "text-white"
+              }`}
             >
               Blogs
             </Link>
