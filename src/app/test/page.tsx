@@ -1,8 +1,8 @@
+import { Button } from "@/components/button";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import SideNav from "@/components/SideNav";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
-import SideNav from "@/components/layout/SideNav";
 
 export default function TestPage() {
   return (
