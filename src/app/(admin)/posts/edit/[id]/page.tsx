@@ -1,12 +1,12 @@
 "use client";
 
-import { api } from "@/shared/lib/axios";
+import { api } from "@/app/shared/lib/axios";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import { useRouter } from "next/navigation";
-import { PostForm } from "@/shared/types/blog";
+import { PostForm } from "@/app/shared/types/blog";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
