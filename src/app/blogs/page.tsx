@@ -12,6 +12,7 @@ const getPosts = async () => {
     return []; // fallback 값
   }
 };
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const posts = await getPosts();
@@ -22,7 +23,7 @@ export default async function BlogPage() {
         {posts.map((post: Post) => (
           <Link
             key={post._id}
-            href={`/blogs/${post.slug}`}
+            href={`/blogs/${encodeURIComponent(post.slug)}`}
             className="block hover:no-underline"
           >
             <li className="p-4 rounded shadow border-b border-gray-700 hover:bg-gray-800 transition-colors duration-200">
