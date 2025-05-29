@@ -1,15 +1,7 @@
-import { api } from "@/lib/axios";
+import { api } from "@/shared/lib/axios";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
-
-// app/blog/page.tsx
-type Post = {
-  _id: string;
-  title: string;
-  subTitle: string;
-  body: string;
-  createdAt: string;
-};
+import { Post } from "@/shared/types/blog";
 
 const getPosts = async () => {
   try {
@@ -30,7 +22,7 @@ export default async function BlogPage() {
         {posts.map((post: Post) => (
           <Link
             key={post._id}
-            href={`/blogs/${post._id}`}
+            href={`/blogs/${post.slug}`}
             className="block hover:no-underline"
           >
             <li className="p-4 rounded shadow border-b border-gray-700 hover:bg-gray-800 transition-colors duration-200">
