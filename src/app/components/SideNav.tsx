@@ -1,15 +1,34 @@
-// src/app/components/layout/SideNav.tsx
 "use client";
 
 import Image from "next/image";
 
 const modules = [
-  { id: "home", icon: "/images/icon-navi-grid.svg", label: "Home" },
-  { id: "about", icon: "/images/icon-navi-user.svg", label: "About" },
-  { id: "skills", icon: "/images/icon-navi-code.svg", label: "Skills" },
-  { id: "projects", icon: "/images/icon-navi-monitor.svg", label: "Projects" },
-  { id: "blog", icon: "/images/icon-navi-edit.svg", label: "Blog" },
-  { id: "contact", icon: "/images/icon-navi-mail.svg", label: "Contact" },
+  { id: "home", icon: "/images/icon-navi-grid.svg", label: "홈으로 이동" },
+  {
+    id: "about",
+    icon: "/images/icon-navi-user.svg",
+    label: "소개 섹션으로 이동",
+  },
+  {
+    id: "skills",
+    icon: "/images/icon-navi-code.svg",
+    label: "기술 스택 섹션으로 이동",
+  },
+  {
+    id: "projects",
+    icon: "/images/icon-navi-monitor.svg",
+    label: "프로젝트 섹션으로 이동",
+  },
+  {
+    id: "blog",
+    icon: "/images/icon-navi-edit.svg",
+    label: "블로그 섹션으로 이동",
+  },
+  {
+    id: "contact",
+    icon: "/images/icon-navi-mail.svg",
+    label: "연락처 섹션으로 이동",
+  },
 ];
 
 export default function SideNav() {
@@ -21,41 +40,42 @@ export default function SideNav() {
   };
 
   return (
-    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 ">
-      <div
-        className="border border-white rounded-full flex flex-col items-center py-4 px-2 bg-bg2"
-        style={{ minHeight: "64px" }}
+    <aside>
+      <nav
+        className="fixed left-8 top-1/2 -translate-y-1/2 z-50"
+        aria-label="페이지 네비게이션"
       >
-        {modules.map((module) => (
-          <div key={module.id} className="mb-2 last:mb-0">
-            {module.id === "home" ? (
-              <button
-                className="w-12 h-12 rounded-full flex items-center justify-center bg-white border border-white shadow hover:bg-white/80 transition"
-                onClick={() => handleModuleClick(module.id)}
-              >
-                <Image
-                  src={module.icon}
-                  alt={module.label}
-                  width={24}
-                  height={24}
-                />
-              </button>
-            ) : (
-              <button
-                className="w-12 h-12 rounded-full flex items-center justify-center hover:bg-white/20 transition"
-                onClick={() => handleModuleClick(module.id)}
-              >
-                <Image
-                  src={module.icon}
-                  alt={module.label}
-                  width={24}
-                  height={24}
-                />
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+        <div
+          className="border border-white rounded-full flex flex-col items-center py-4 px-2 bg-bg2"
+          role="navigation"
+        >
+          <ul className="flex flex-col gap-2">
+            {modules.map((module) => (
+              <li key={module.id}>
+                <button
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition
+                  ${
+                    module.id === "home"
+                      ? "bg-white border border-white shadow hover:bg-white/80"
+                      : "hover:bg-white/20"
+                  }`}
+                  onClick={() => handleModuleClick(module.id)}
+                  aria-label={module.label}
+                  type="button"
+                >
+                  <Image
+                    src={module.icon}
+                    alt=""
+                    width={24}
+                    height={24}
+                    aria-hidden="true"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </aside>
   );
 }

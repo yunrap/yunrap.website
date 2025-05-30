@@ -4,8 +4,8 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
-import { api } from "@/shared/lib/axios";
-import { PostForm } from "@/shared/types/blog";
+import { api } from "@/app/shared/lib/axios";
+import { PostForm } from "@/app/shared/types/blog";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
