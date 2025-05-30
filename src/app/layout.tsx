@@ -10,6 +10,22 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  openGraph: {
+    title: "Yunrap 기술 사이트",
+    description: "Yunrap 개발성장 사이트입니다.",
+    url: "https://yunrap-website.vercel.app",
+    siteName: "Yunrap 기술 블로그",
+    images: [
+      {
+        url: "https://yunrap-website.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Yunrap 기술 사이트 썸네일",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 const ubuntu = Ubuntu({
