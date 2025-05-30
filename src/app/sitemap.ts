@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...data.map((post: Post) => {
       return {
-        url: `https://yunrap-website.vercel.app/${post.slug}`,
+        url: `https://yunrap-website.vercel.app/blogs/${post.slug}`,
         lastModified: new Date(post.createdAt),
       };
     }),
