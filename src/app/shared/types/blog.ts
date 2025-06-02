@@ -8,6 +8,7 @@ export interface Post {
 }
 
 export interface PostForm {
+  id: string;
   title: string;
   subTitle: string;
   slug: string;

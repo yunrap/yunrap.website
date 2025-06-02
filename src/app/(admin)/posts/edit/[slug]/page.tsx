@@ -10,10 +10,11 @@ import { PostForm } from '@/app/shared/types/blog';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
-export default function EditPostPage({ params }: { params: { id: string } }) {
+export default function EditPostPage({ params }: { params: { slug: string } }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState<PostForm>({
+    id: '',
     title: '',
     subTitle: '',
     slug: '',
@@ -21,10 +22,12 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
   });
 
   useEffect(() => {
+    console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
-        const { data } = await api.get(`/posts/${params.id}`);
+        const { data } = await api.get(`/posts/${params.slug}`);
         setFormData({
+          id: data._id,
           title: data.title,
           subTitle: data.subTitle,
           slug: data.slug || '',
@@ -39,7 +42,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     };
 
     fetchPost();
-  }, [params.id, router]);
+  }, [params.slug, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -68,15 +71,15 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
   };
 
   const handleSubmit = async () => {
-    const { title, subTitle, content, slug } = formData;
-
+    const { id, title, subTitle, content, slug } = formData;
+    console.log('Submitting post with data:', formData);
     if (!title || !subTitle || !content) {
       alert('제목과 내용을 입력해주세요.');
       return;
     }
 
     try {
-      await api.put(`/posts/${params.id}`, {
+      await api.put(`/posts/${id}`, {
         title,
         subTitle,
         slug,
