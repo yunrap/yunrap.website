@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import MDEditor from "@uiw/react-md-editor";
+import MDEditor from '@uiw/react-md-editor';
 
 interface MarkdownViewProps {
   content: string;

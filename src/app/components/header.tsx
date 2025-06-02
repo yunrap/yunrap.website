@@ -1,28 +1,28 @@
-"use client";
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Input } from "./input";
-import SearchModal from "./searchModal";
+'use client';
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { Input } from './input';
+import SearchModal from './searchModal';
 
 export default function Header() {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === "/";
+    if (path === '/') {
+      return pathname === '/';
     }
     return pathname?.startsWith(path);
   };
 
   return (
     <header className="h-[10.625rem] bg-bg1 px-6 xl:px-8 2xl:px-[8rem]">
-      <div className="h-full flex items-center justify-between">
+      <div className="flex h-full items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center 2xl:text-LogoM md:text-MenuM text-MediaM"
+          className="flex items-center text-MediaM md:text-MenuM 2xl:text-LogoM"
           aria-label="홈으로 이동"
         >
           <span className="text-brand1" aria-hidden="true">{`<C/>`}</span>
@@ -30,19 +30,16 @@ export default function Header() {
         </Link>
 
         {/* Navigation Area */}
-        <nav
-          className="flex items-center gap-4 sm:gap-16"
-          aria-label="메인 네비게이션"
-        >
+        <nav className="flex items-center gap-4 sm:gap-16" aria-label="메인 네비게이션">
           {/* Main Navigation */}
           <ul role="list" className="flex items-center gap-4 sm:gap-8">
             <li>
               <Link
                 href="/"
                 className={`hover:text-brand1 sm:text-MediaM ${
-                  isActive("/") ? "text-brand1" : "text-white"
+                  isActive('/') ? 'text-brand1' : 'text-white'
                 }`}
-                aria-current={isActive("/") ? "page" : undefined}
+                aria-current={isActive('/') ? 'page' : undefined}
               >
                 Home
               </Link>
@@ -51,9 +48,9 @@ export default function Header() {
               <Link
                 href="/blogs"
                 className={`hover:text-brand1 sm:text-MediaM ${
-                  isActive("/blogs") ? "text-brand1" : "text-white"
+                  isActive('/blogs') ? 'text-brand1' : 'text-white'
                 }`}
-                aria-current={isActive("/blogs") ? "page" : undefined}
+                aria-current={isActive('/blogs') ? 'page' : undefined}
               >
                 Blogs
               </Link>
@@ -87,17 +84,13 @@ export default function Header() {
             <SearchModal />
 
             {/* Social Links */}
-            <ul
-              role="list"
-              className="items-center gap-8 hidden md:flex"
-              aria-label="소셜 링크"
-            >
+            <ul role="list" className="hidden items-center gap-8 md:flex" aria-label="소셜 링크">
               <li>
                 <a
                   href="https://github.com/yunrap"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-x-2 hover:text-brand1 text-white"
+                  className="flex items-center gap-x-2 text-white hover:text-brand1"
                   aria-label="GitHub 프로필로 이동"
                 >
                   <Image

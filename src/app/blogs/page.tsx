@@ -1,15 +1,14 @@
-import { api } from "@/app/shared/lib/axios";
-import Link from "next/link";
-import { format, parseISO } from "date-fns";
-import { Post } from "@/app/shared/types/blog";
+import { api } from '@/app/shared/lib/axios';
+import Link from 'next/link';
+import { format, parseISO } from 'date-fns';
+import { Post } from '@/app/shared/types/blog';
 
 const getPosts = async () => {
   try {
     const { data } = await api.get(`/postsAll`);
-    console.log(data);
     return data;
   } catch (error) {
-    console.error("fetch error:", error);
+    console.error('fetch error:', error);
     return []; // fallback 값
   }
 };
@@ -26,26 +25,18 @@ export default async function BlogPage() {
             <li key={post._id} className="group">
               <Link
                 href={`/blogs/${encodeURIComponent(post.slug)}`}
-                className="block p-4 rounded shadow border-b border-gray-700 hover:bg-gray-800 transition-colors duration-200"
+                className="block rounded border-b border-gray-700 p-4 shadow transition-colors duration-200 hover:bg-gray-800"
                 aria-labelledby={`post-title-${post._id}`}
               >
                 <article className="flex flex-col space-y-2">
-                  <time
-                    dateTime={post.createdAt}
-                    className="text-brand1 text-sm"
-                  >
-                    {format(parseISO(post.createdAt), "yyyy-MM-dd")}
+                  <time dateTime={post.createdAt} className="text-sm text-brand1">
+                    {format(parseISO(post.createdAt), 'yyyy-MM-dd')}
                   </time>
                   <div>
-                    <h2
-                      id={`post-title-${post._id}`}
-                      className="text-xl text-white font-bold"
-                    >
+                    <h2 id={`post-title-${post._id}`} className="text-xl font-bold text-white">
                       {post.title}
                     </h2>
-                    <p className="text-gray-400 mt-2 line-clamp-3">
-                      {post.subTitle}
-                    </p>
+                    <p className="mt-2 line-clamp-3 text-gray-400">{post.subTitle}</p>
                   </div>
                 </article>
               </Link>

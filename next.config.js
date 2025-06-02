@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  images: {
+    domains: ['yunrap-website.vercel.app'],
+  },
 };
 
 module.exports = nextConfig;
