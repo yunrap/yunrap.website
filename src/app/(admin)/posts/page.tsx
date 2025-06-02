@@ -11,6 +11,7 @@ const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
 export default function NewPostPage() {
   const [formData, setFormData] = useState<PostForm>({
+    id: '',
     title: '',
     subTitle: '',
     slug: '',
@@ -61,6 +62,7 @@ export default function NewPostPage() {
 
       alert('등록 성공');
       setFormData({
+        id: '',
         title: '',
         subTitle: '',
         slug: '',
