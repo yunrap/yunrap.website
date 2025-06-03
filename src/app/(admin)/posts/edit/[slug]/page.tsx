@@ -22,7 +22,6 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
   });
 
   useEffect(() => {
-    console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
         const { data } = await api.get(`/posts/${params.slug}`);
@@ -72,7 +71,6 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
 
   const handleSubmit = async () => {
     const { id, title, subTitle, content, slug } = formData;
-    console.log('Submitting post with data:', formData);
     if (!title || !subTitle || !content) {
       alert('제목과 내용을 입력해주세요.');
       return;
