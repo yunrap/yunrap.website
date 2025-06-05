@@ -22,6 +22,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
   });
 
   useEffect(() => {
+    console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
         const { data } = await api.get(`/posts/${params.slug}`);

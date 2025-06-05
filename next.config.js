@@ -7,6 +7,10 @@ const nextConfig = {
   images: {
     domains: ['yunrap-website.vercel.app'],
   },
+  rewrites: {
+    source: '/sitemap.xml',
+    destination: '/sitemap',
+  },
 };
 
 module.exports = nextConfig;
