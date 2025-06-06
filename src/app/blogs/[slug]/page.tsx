@@ -1,4 +1,3 @@
-import { api } from '@/app/shared/lib/axios';
 import { markdownToHtml } from '@/app/shared/lib/markdown';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
@@ -19,7 +18,11 @@ export async function generateMetadata({
 
 async function getPost(id: string) {
   try {
-    const { data } = await api.get(`/posts/${id}`);
+    const res = await fetch(`/api/posts/${id}`);
+    if (!res.ok) {
+      throw new Error('Failed to fetch post');
+    }
+    const data = await res.json();
     return data;
   } catch (error) {
     console.error('fetch error:', error);

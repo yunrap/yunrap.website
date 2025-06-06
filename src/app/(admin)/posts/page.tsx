@@ -4,7 +4,6 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
-import { api } from '@/app/shared/lib/axios';
 import { PostForm } from '@/app/shared/types/blog';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
@@ -53,12 +52,22 @@ export default function NewPostPage() {
     }
 
     try {
-      await api.post('/posts', {
-        title,
-        subTitle,
-        slug,
-        body: content,
+      const res = await fetch('/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          subTitle,
+          slug,
+          body: content,
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error('등록 실패');
+      }
 
       alert('등록 성공');
       setFormData({

@@ -1,14 +1,21 @@
 import type { MetadataRoute } from 'next';
-import { api } from './shared/lib/axios';
 import { Post } from './shared/types/blog';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://yunrap-website.vercel.app';
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  try {
-    const { data } = await api.get('/postsAll');
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    // 기본 페이지와 블로그 목록 페이지
+  try {
+    const res = await fetch(`${BASE_URL}/postsAll`, {
+      // SSR에서 기본적으로 캐시 제어할 수 있음
+      next: { revalidate: 60 }, // 60초마다 캐시 재검증
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch posts: ${res.statusText}`);
+    }
+
+    const data: Post[] = await res.json();
+
     const staticPages: MetadataRoute.Sitemap = [
       {
         url: BASE_URL,
@@ -24,8 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ];
 
-    // 블로그 포스트 페이지들
-    const postPages: MetadataRoute.Sitemap = data.map((post: Post) => ({
+    const postPages: MetadataRoute.Sitemap = data.map((post) => ({
       url: `${BASE_URL}/blogs/${post.slug}`,
       lastModified: new Date(post.createdAt).toISOString(),
       changeFrequency: 'weekly',
@@ -35,7 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [...staticPages, ...postPages];
   } catch (error) {
     console.error('Sitemap generation failed:', error);
-    // 에러 시 기본 페이지만 반환
     return [
       {
         url: BASE_URL,

@@ -1,6 +1,5 @@
 'use client';
 
-import { api } from '@/app/shared/lib/axios';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -25,7 +24,14 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
-        const { data } = await api.get(`/posts/${params.slug}`);
+        const res = await fetch(`/api/posts/${params.slug}`);
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch post');
+        }
+
+        const data = await res.json();
+
         setFormData({
           id: data._id,
           title: data.title,
@@ -33,6 +39,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
           slug: data.slug || '',
           content: data.body,
         });
+
         setIsLoading(false);
       } catch (error) {
         console.error('Failed to fetch post:', error);
@@ -69,7 +76,6 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
       content: value || '',
     }));
   };
-
   const handleSubmit = async () => {
     const { id, title, subTitle, content, slug } = formData;
     if (!title || !subTitle || !content) {
@@ -78,12 +84,22 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     }
 
     try {
-      await api.put(`/posts/${id}`, {
-        title,
-        subTitle,
-        slug,
-        body: content,
+      const res = await fetch(`/api/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          subTitle,
+          slug,
+          body: content,
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error('Post update failed');
+      }
 
       alert('수정 성공');
       router.push('/posts');

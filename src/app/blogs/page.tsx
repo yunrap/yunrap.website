@@ -1,16 +1,15 @@
-import { api } from '@/app/shared/lib/axios';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { Post } from '@/app/shared/types/blog';
 
 const getPosts = async () => {
-  try {
-    const { data } = await api.get(`/postsAll`);
-    return data;
-  } catch (error) {
-    console.error('fetch error:', error);
-    return []; // fallback 값
-  }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/postsAll`, {
+    next: { revalidate: 10 }, // 10초마다 새로고침
+    cache: 'no-store', // 즉시 최신 데이터 필요하면 no-store로도 가능
+  });
+
+  if (!res.ok) throw new Error('Failed to fetch posts');
+  return res.json();
 };
 
 export default async function BlogPage() {
