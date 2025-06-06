@@ -43,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Sitemap generation failed:', error);
     return [
       {
-        url: BASE_URL,
+        url: BASE_URL || '',
         lastModified: new Date().toISOString(),
         changeFrequency: 'daily',
         priority: 1.0,
