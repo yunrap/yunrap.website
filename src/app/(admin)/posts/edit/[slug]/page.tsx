@@ -24,7 +24,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
-        const res = await fetch(`/api/posts/${params.slug}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${params.slug}`);
 
         if (!res.ok) {
           throw new Error('Failed to fetch post');
@@ -84,7 +84,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     }
 
     try {
-      const res = await fetch(`/api/posts/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

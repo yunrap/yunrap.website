@@ -18,7 +18,7 @@ export async function generateMetadata({
 
 async function getPost(id: string) {
   try {
-    const res = await fetch(`/api/posts/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
     if (!res.ok) {
       throw new Error('Failed to fetch post');
     }
