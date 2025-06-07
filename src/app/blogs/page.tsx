@@ -4,8 +4,7 @@ import { Post } from '@/app/shared/types/blog';
 
 const getPosts = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/postsAll`, {
-    next: { revalidate: 10 }, // 10초마다 새로고침
-    cache: 'no-store', // 즉시 최신 데이터 필요하면 no-store로도 가능
+    cache: 'no-store',
   });
 
   if (!res.ok) throw new Error('Failed to fetch posts');

@@ -19,7 +19,7 @@ const techStack = [
 // 연락처 정보 데이터
 const contactInfo = [
   { icon: '📧', text: 'dbsdpwl7@gmail.com', label: '이메일' },
-  { icon: '🏠', text: '부천', label: '사는곳' },
+  { icon: '🏠', text: 'bucheon', label: '사는곳' },
 ];
 
 // 기술 스택 태그 컴포넌트
@@ -57,8 +57,8 @@ export default function Page() {
                 />
               </div>
 
-              <h1 className="text-center text-LogoM font-bold">윤예지</h1>
-              <p className="mb-8 text-center text-CodeM text-gray-300">프론트엔드 개발자</p>
+              <h1 className="text-center text-LogoM font-bold">yunrap</h1>
+              <p className="mb-8 text-center text-CodeM text-gray-300">Frontend developer</p>
 
               <ul className="space-y-2 text-CodeM text-sm font-bold">
                 {contactInfo.map((item, index) => (
@@ -81,7 +81,7 @@ export default function Page() {
               </div>
               <a href="/윤예지_이력서.pdf" download aria-label="이력서 다운로드">
                 <Button variant="white" className="px-8">
-                  다운로드 이력서
+                  resume
                   <span>
                     <Image src="/images/icon-download.svg" alt="logo" width={12} height={12} />
                   </span>
@@ -105,9 +105,11 @@ export default function Page() {
               <div className="text-left">
                 <div className="text-CodeM text-brand2">{'<p>'}</div>
                 <p className="pl-4 text-ParaM">
-                  코딩 자체를 즐기며, 컴퓨터 앞에서 깊이 있는 몰입을 통해 문제를 해결하는
-                  개발자입니다. 신기술을 배우는 데 흥미를 느끼며, 빠르게 변화하는 개발 흐름을
-                  따라가기 위해 꾸준히 학습하고 있습니다.
+                  컴포넌트 개발과 공통 코드 작성에 관심이 많아 재사용성과 유지보수성을 높이는 코딩에
+                  집중하고 있습니다. <br />
+                  사용자 경험과 성능 향상을 위해 꾸준히 기술을 배우며, <br />
+                  만든 서비스로 사용자에게 좋은 첫인상을 남길 수 있도록 항상 성장하고
+                  발전하겠습니다.
                 </p>
                 <div className="text-CodeM text-brand2">{'</p>'}</div>
               </div>
