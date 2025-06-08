@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://yunrap-backend.onrender.com
+
+# Sitemaps
+Sitemap: https://yunrap-backend.onrender.com/sitemap.xml
