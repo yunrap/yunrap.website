@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 async function fetchDynamicPaths() {
-  const res = await fetch(`https://yunrap-backend.onrender.com/postsAll`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/postsAll`);
   const posts = await res.json();
 
   return posts.map((post) => ({
@@ -12,7 +12,7 @@ async function fetchDynamicPaths() {
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: 'https://yunrap-backend.onrender.com',
+  siteUrl: 'https://yunrap-website.vercel.app/',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,

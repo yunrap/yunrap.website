@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://yunrap-backend.onrender.com
+Host: https://yunrap-website.vercel.app/
 
 # Sitemaps
-Sitemap: https://yunrap-backend.onrender.com/sitemap.xml
+Sitemap: https://yunrap-website.vercel.app/sitemap.xml
