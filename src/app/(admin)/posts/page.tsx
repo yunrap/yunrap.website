@@ -5,10 +5,12 @@ import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 import { PostForm } from '@/app/shared/types/blog';
+import { useRequireAuth } from '@/app/shared/hooks/useRequireAuth';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
 export default function NewPostPage() {
+  useRequireAuth();
   const [formData, setFormData] = useState<PostForm>({
     id: '',
     title: '',

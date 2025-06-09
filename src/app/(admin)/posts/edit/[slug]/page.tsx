@@ -6,10 +6,12 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 import { useRouter } from 'next/navigation';
 import { PostForm } from '@/app/shared/types/blog';
+import { useRequireAuth } from '@/app/shared/hooks/useRequireAuth';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
 export default function EditPostPage({ params }: { params: { slug: string } }) {
+  useRequireAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState<PostForm>({
@@ -21,7 +23,6 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
   });
 
   useEffect(() => {
-    console.log('Fetching post with slug:', params.slug);
     const fetchPost = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${params.slug}`);
@@ -102,7 +103,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
       }
 
       alert('수정 성공');
-      router.push('/posts');
+      router.push(`/blogs/${formData.slug}`);
     } catch (error) {
       console.error('Post update failed:', error);
       alert('수정 실패');

@@ -3,6 +3,7 @@ import { Ubuntu } from 'next/font/google';
 import './globals.css';
 import Header from './components/header';
 import Footer from './components/footer';
+import { AppProvider } from './contexts/appContext';
 
 export const metadata: Metadata = {
   title: 'Yunrap 기술 사이트',
@@ -42,9 +43,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${ubuntu.className} bg-black antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <AppProvider>
+          <Header />
+          {children}
+          <Footer />
+        </AppProvider>
       </body>
     </html>
   );

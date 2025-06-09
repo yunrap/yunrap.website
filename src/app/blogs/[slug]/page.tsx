@@ -2,6 +2,8 @@ import { markdownToHtml } from '@/app/shared/lib/markdown';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/shared/lib/auth';
 
 export async function generateMetadata({
   params,
@@ -33,6 +35,8 @@ async function getPost(id: string) {
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug);
   const htmlContent = await markdownToHtml(post?.body || '');
+  const session = await getServerSession(authOptions);
+  const isAdmin = session?.user?.email === process.env.ADMIN_EMAIL;
 
   if (!post) {
     return (
@@ -54,7 +58,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   return (
     <main className="p-6">
       <article>
-        <nav className="mb-8" aria-label="블로그 네비게이션">
+        <nav className="mb-8 flex justify-between" aria-label="블로그 네비게이션">
           <Link
             href="/blogs"
             className="inline-flex items-center gap-1 text-gray-400 hover:text-white"
@@ -62,6 +66,15 @@ export default async function Post({ params }: { params: { slug: string } }) {
           >
             <span aria-hidden="true">←</span> 목록으로
           </Link>
+          {isAdmin && (
+            <Link
+              href={`/posts/edit/${params.slug}`}
+              className="inline-flex items-center gap-1 text-gray-400 hover:text-white"
+              aria-label="블로그 수정하기"
+            >
+              수정하기
+            </Link>
+          )}
         </nav>
 
         <header className="mb-8">
