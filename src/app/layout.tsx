@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko_KR">
       <body className={`${ubuntu.className} bg-black antialiased`}>
         <AppProvider>
           <Header />

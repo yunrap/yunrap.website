@@ -7,6 +7,7 @@ import '@uiw/react-markdown-preview/markdown.css';
 import { useRouter } from 'next/navigation';
 import { PostForm } from '@/app/shared/types/blog';
 import { useRequireAuth } from '@/app/shared/hooks/useRequireAuth';
+import { Category } from '@/app/shared/types/category';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
@@ -20,39 +21,11 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     subTitle: '',
     slug: '',
     content: '',
+    category: '',
   });
+  const [categories, setCategories] = useState<{ id: number; label: string }[]>([]);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${params.slug}`);
-
-        if (!res.ok) {
-          throw new Error('Failed to fetch post');
-        }
-
-        const data = await res.json();
-
-        setFormData({
-          id: data._id,
-          title: data.title,
-          subTitle: data.subTitle,
-          slug: data.slug || '',
-          content: data.body,
-        });
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch post:', error);
-        alert('게시글을 불러오는데 실패했습니다.');
-        router.push('/posts');
-      }
-    };
-
-    fetchPost();
-  }, [params.slug, router]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     if (name === 'slug') {
@@ -78,8 +51,8 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
     }));
   };
   const handleSubmit = async () => {
-    const { id, title, subTitle, content, slug } = formData;
-    if (!title || !subTitle || !content) {
+    const { id, title, subTitle, content, slug, category } = formData;
+    if (!title || !subTitle || !content || !category) {
       alert('제목과 내용을 입력해주세요.');
       return;
     }
@@ -95,6 +68,7 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
           subTitle,
           slug,
           body: content,
+          category: category,
         }),
       });
 
@@ -109,6 +83,54 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
       alert('수정 실패');
     }
   };
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${params.slug}`);
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch post');
+        }
+
+        const data = await res.json();
+
+        setFormData({
+          id: data._id,
+          title: data.title,
+          subTitle: data.subTitle,
+          slug: data.slug || '',
+          content: data.body,
+          category: data.category,
+        });
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch post:', error);
+        alert('게시글을 불러오는데 실패했습니다.');
+        router.push('/posts');
+      }
+    };
+
+    fetchPost();
+  }, [params.slug, router]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+        if (!res.ok) throw new Error('Failed to fetch categories');
+        const data = await res.json();
+        const allChildLabels = data.flatMap((category: Category, idx: number) =>
+          category.child.map((item) => ({ label: item.label, id: idx })),
+        );
+        setCategories(allChildLabels);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, [params.slug, router]);
 
   if (isLoading) {
     return <div className="p-4">Loading...</div>;
@@ -141,6 +163,22 @@ export default function EditPostPage({ params }: { params: { slug: string } }) {
         onChange={handleChange}
         className="mb-4 w-full rounded border p-2"
       />
+      <div>
+        <label htmlFor="category-select">카테고리 선택:</label>
+        <select
+          id="category-select"
+          value={formData.category}
+          onChange={handleChange}
+          name="category"
+        >
+          <option value="">-- 선택하세요 --</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.label}>
+              {category.label}
+            </option>
+          ))}
+        </select>
+      </div>
       <MDEditor value={formData.content} onChange={handleEditorChange} height={400} />
       <div className="mt-4 flex gap-2">
         <button

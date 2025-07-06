@@ -4,6 +4,7 @@ export interface Post {
   subTitle: string;
   body: string;
   createdAt: string;
+  category: string;
   slug: string;
 }
 
@@ -13,6 +14,7 @@ export interface PostForm {
   subTitle: string;
   slug: string;
   content: string;
+  category: string;
 }
 
 export interface PostResponse {
