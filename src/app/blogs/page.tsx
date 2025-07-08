@@ -1,9 +1,14 @@
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { Post } from '@/app/shared/types/blog';
+import Category from '@components/Category';
 
-const getPosts = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/postsAll`, {
+const getPosts = async (category: string | undefined) => {
+  const url = category
+    ? `${process.env.NEXT_PUBLIC_API_URL}/postsAll?category=${encodeURIComponent(category)}`
+    : `${process.env.NEXT_PUBLIC_API_URL}/postsAll`;
+
+  const res = await fetch(url, {
     cache: 'no-store',
   });
 
@@ -11,15 +16,25 @@ const getPosts = async () => {
   return res.json();
 };
 
-export default async function BlogPage() {
-  const posts = await getPosts();
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  let category = (await searchParams).category;
+  if (Array.isArray(category)) category = category[0];
+  const posts: Post[] = await getPosts(category);
+
+  const filteredPosts = category ? posts.filter((post) => post.category === category) : posts;
 
   return (
     <main className="p-6">
       <h1 className="sr-only">블로그 게시글 목록</h1>
+      {/* 네비게이션 */}
+      <Category />
       <ul className="space-y-4">
         <ul className="space-y-4" role="list">
-          {posts.map((post: Post) => (
+          {filteredPosts.map((post: Post) => (
             <li key={post._id} className="group">
               <Link
                 href={`/blogs/${encodeURIComponent(post.slug)}`}
