@@ -4,11 +4,11 @@ type CategoryItem = {
   desc: string;
 };
 
-type Category = {
+type CategoryType = {
   _id: string;
   id: string;
   label: string;
   child: CategoryItem[];
 };
 
-export type { CategoryItem, Category };
+export type { CategoryItem, CategoryType };
