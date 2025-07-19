@@ -2,36 +2,62 @@ import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { Post } from '@/app/shared/types/blog';
 import Category from '@components/Category';
+import { CategoryType } from '@/app/shared/types/category';
 
-const getPosts = async (category: string | undefined) => {
-  const url = category
-    ? `${process.env.NEXT_PUBLIC_API_URL}/postsAll?category=${encodeURIComponent(category)}`
-    : `${process.env.NEXT_PUBLIC_API_URL}/postsAll`;
+const getCategories = async (): Promise<CategoryType[]> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+      next: { revalidate: 86499 }, // 24시간마다 새로고침
+    });
 
-  const res = await fetch(url, {
-    cache: 'no-store',
-  });
+    if (!res.ok) {
+      throw new Error('Failed to fetch categories');
+    }
 
-  if (!res.ok) throw new Error('Failed to fetch posts');
-  return res.json();
+    return res.json();
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+    return [];
+  }
+};
+
+const getPosts = async (searchParams: { category?: string }): Promise<Post[]> => {
+  try {
+    const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/postsAll`);
+    if (searchParams.category) {
+      url.searchParams.append('category', searchParams.category);
+    }
+
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 60 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch posts');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('Failed to fetch posts:', error);
+    return [];
+  }
 };
 
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ category?: string }>;
 }) {
-  let category = (await searchParams).category;
-  if (Array.isArray(category)) category = category[0];
-  const posts: Post[] = await getPosts(category);
+  const categories = await getCategories();
+  const posts = await getPosts({ category: (await searchParams).category });
 
-  const filteredPosts = category ? posts.filter((post) => post.category === category) : posts;
+  const filteredPosts = posts;
 
   return (
     <main className="p-6">
       <h1 className="sr-only">블로그 게시글 목록</h1>
       {/* 네비게이션 */}
-      <Category />
+      <Category categories={categories} />
       <ul className="space-y-4">
         <ul className="space-y-4" role="list">
           {filteredPosts.map((post: Post) => (
