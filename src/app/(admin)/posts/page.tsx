@@ -6,7 +6,7 @@ import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 import { PostForm } from '@/app/shared/types/blog';
 import { useRequireAuth } from '@/app/shared/hooks/useRequireAuth';
-import { Category } from '@/app/shared/types/category';
+import { CategoryType } from '@/app/shared/types/category';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
@@ -95,7 +95,7 @@ export default function NewPostPage() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
         if (!res.ok) throw new Error('Failed to fetch categories');
         const data = await res.json();
-        const allChildLabels = data.flatMap((category: Category, idx: number) =>
+        const allChildLabels = data.flatMap((category: CategoryType, idx: number) =>
           category.child.map((item) => ({ label: item.label, id: idx })),
         );
         setCategories(allChildLabels);

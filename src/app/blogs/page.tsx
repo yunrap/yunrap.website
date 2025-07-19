@@ -11,12 +11,12 @@ const getCategories = async (): Promise<CategoryType[]> => {
     });
 
     if (!res.ok) {
-      throw new Error('Failed to fetch posts');
+      throw new Error('Failed to fetch categories');
     }
 
     return res.json();
   } catch (error) {
-    console.error('Failed to fetch posts:', error);
+    console.error('Failed to fetch categories:', error);
     return [];
   }
 };
@@ -51,12 +51,7 @@ export default async function BlogPage({
   const categories = await getCategories();
   const posts = await getPosts({ category: (await searchParams).category });
 
-  const selectedCategory = (await searchParams).category || null;
-
-  // 카테고리 필터링
-  const filteredPosts = selectedCategory
-    ? posts.filter((post) => post.category === selectedCategory)
-    : posts;
+  const filteredPosts = posts;
 
   return (
     <main className="p-6">
