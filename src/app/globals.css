@@ -98,3 +98,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@layer utilities {
+  .clap {
+    position: absolute;
+    animation: fadeIn 2s forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .background {
+    position: relative;
+    @apply fixed inset-0  pointer-events-none overflow-hidden bg-black/20;
+  }
+
+}

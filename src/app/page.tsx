@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import SideNav from './components/SideNav';
 import { Button } from './components/button';
+import Clap from './components/ClapButton';
 
 // 기술 스택 데이터
 const techStack = [
@@ -33,6 +34,7 @@ export default function Page() {
   return (
     <div>
       <SideNav />
+      <div className='background'></div>
       <main>
         <section
           id="home"
@@ -58,7 +60,10 @@ export default function Page() {
               </div>
 
               <h1 className="text-center text-LogoM font-bold">yunrap</h1>
-              <p className="mb-8 text-center text-CodeM text-gray-300">Frontend developer</p>
+              <div className='flex flex-row justify-center items-center gap-2'>
+                <p className="text-center text-CodeM text-gray-300">Frontend developer</p>
+                <Clap/>
+              </div>
 
               <ul className="space-y-2 text-CodeM text-sm font-bold">
                 {contactInfo.map((item, index) => (
