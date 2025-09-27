@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import SideNav from './components/SideNav';
-import { Button } from './components/button';
+import { Button } from './components/Button';
+import Clap from './components/ClapButton';
 
 // 기술 스택 데이터
 const techStack = [

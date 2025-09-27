@@ -3,8 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Input } from './input';
-import SearchModal from './searchModal';
+import { Input } from './Input';
+import SearchModal from './SearchModal';
 
 export default function Header() {
   const pathname = usePathname();

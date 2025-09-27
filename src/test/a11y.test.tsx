@@ -4,11 +4,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import Header from '@/app/components/header';
-import { Input } from '@/app/components/input';
-import Footer from '@/app/components/footer';
-import SearchModal from '@/app/components/searchModal';
-import { Button } from '@/app/components/button';
+import Header from '@/app/components/Header';
+import { Input } from '@/app/components/Input';
+import Footer from '@/app/components/Footer';
+import SearchModal from '@/app/components/SearchModal';
+import { Button } from '@/app/components/Button';
 import Page from '@/app/(admin)/posts/page';
 
 expect.extend(toHaveNoViolations);

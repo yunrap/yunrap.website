@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Input } from './input';
+import { Input } from './Input';
 
 export default function SearchModal() {
   const [open, setOpen] = useState(false);
